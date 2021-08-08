@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import filmdb.filmdb.entities.concretes.Review;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,12 +23,12 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","reviews"})
 public class User {
-
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
 
 	@Column(name = "first_name")

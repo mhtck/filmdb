@@ -5,7 +5,7 @@ import java.util.List;
 import filmdb.filmdb.core.utilities.results.DataResult;
 import filmdb.filmdb.core.utilities.results.Result;
 import filmdb.filmdb.entities.concretes.Movie;
-import filmdb.filmdb.entities.dtos.MovieDto;
+
 
 public interface MovieService {
 
@@ -13,7 +13,7 @@ public interface MovieService {
 	
 	Result add(Movie movie);
 	
-	Result update(MovieDto movieDto) ;
+	Result update(Movie movie) ;
 	
 	Result delete(Integer id) ;
 	
@@ -21,9 +21,9 @@ public interface MovieService {
 	
 	DataResult<List<Movie>> getByMovieNameOrCategory_CategoryId(String movieName, int categoryId);
 	
-	DataResult<List<MovieDto>> getMovietWithCategoryDetails();
+	DataResult<List<Movie>> getMovietWithCategoryDetails(Integer categoryId);
 	
-	DataResult<List<MovieDto>> getMovietWithLanguage();
+	DataResult<List<Movie>> getMovietWithLanguage(Integer languageId);
 
 
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import filmdb.filmdb.entities.concretes.Movie;
-import filmdb.filmdb.entities.dtos.MovieDto;
+
 
 public interface MovieDao extends JpaRepository<Movie, Integer>{
 	
@@ -16,11 +16,11 @@ public interface MovieDao extends JpaRepository<Movie, Integer>{
 	
 	List<Movie> getByMovieNameStartsWith(String movieName);
 	
-	@Query("Select new filmdb.filmdb.entities.dtos.MovieDto (m.movieId, m.movieName, c.categoryName) From Category c Inner Join c.movies m")
-	List<MovieDto> getMovieWithCategoryDetails();
+	@Query("From Movie where category.categoryId=:categoryId")
+	List<Movie> getMovieWithCategoryDetails(int categoryId);
 	
-	@Query("Select new filmdb.filmdb.entities.dtos.MovieDto (m.movieId, m.movieName, m.releaseYear) From Language l Inner Join l.movies m")
-	List<MovieDto> getMovieWithLanguage();
+	@Query("From Movie where language.languageId=:languageId")
+	List<Movie> getMovieWithLanguage(int languageId);
 	
 	
 }

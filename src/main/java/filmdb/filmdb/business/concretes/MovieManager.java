@@ -16,7 +16,7 @@ import filmdb.filmdb.core.utilities.results.SuccessDataResult;
 import filmdb.filmdb.core.utilities.results.SuccessResult;
 import filmdb.filmdb.dataAccess.abstracts.MovieDao;
 import filmdb.filmdb.entities.concretes.Movie;
-import filmdb.filmdb.entities.dtos.MovieDto;
+
 
 @Service
 public class MovieManager implements MovieService {
@@ -43,15 +43,15 @@ public class MovieManager implements MovieService {
 		return new SuccessResult("Film Eklendi");
 	}
 
-	public Result update(MovieDto movieDto) {
-		Optional<Movie> foundMovie = movieDao.findById(movieDto.getId());
+	public Result update(Movie movie) {
+		Optional<Movie> foundMovie = movieDao.findById(movie.getMovieId());
 		if (foundMovie.isPresent()) {
-			foundMovie.get().setMovieName(movieDto.getMovieName());
-			foundMovie.get().setReleaseYear(movieDto.getReleaseYear());
+			foundMovie.get().setMovieName(movie.getMovieName());
+			foundMovie.get().setReleaseYear(movie.getReleaseYear());
 			movieDao.save(foundMovie.get());
 			return new SuccessResult("Film Güncellendi.");
 		}
-		throw new MovieNotFoundException(movieDto.getId());
+		throw new MovieNotFoundException(movie.getMovieId());
 	}
 
 	@Override
@@ -76,13 +76,13 @@ public class MovieManager implements MovieService {
 	}
 
 	@Override
-	public DataResult<List<MovieDto>> getMovietWithCategoryDetails() {
-		return new SuccessDataResult<List<MovieDto>>(this.movieDao.getMovieWithCategoryDetails(), "Data Listelendi");
+	public DataResult<List<Movie>> getMovietWithCategoryDetails(Integer categoryId) {
+		return new SuccessDataResult<List<Movie>>(this.movieDao.getMovieWithCategoryDetails(categoryId), "Data Listelendi");
 	}
 
 	@Override
-	public DataResult<List<MovieDto>> getMovietWithLanguage() {
-		return new SuccessDataResult<List<MovieDto>>(this.movieDao.getMovieWithLanguage(), "Data Listelendi");
+	public DataResult<List<Movie>> getMovietWithLanguage(Integer languageId) {
+		return new SuccessDataResult<List<Movie>>(this.movieDao.getMovieWithLanguage(languageId), "Data Listelendi");
 	}
 
 }
